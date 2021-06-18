@@ -9,7 +9,6 @@ npm install</br>
 Y así asegurar que vamos al día de los últimos paquetes. </br>
 
 <h3>Actualizaciones</h3>
-Novedades en cada version
 <h4>back-end:</h4>
 <h6>- user tiene un nuevo campo llamada userImage donde se guardan las direcciones de las imagenes de perfil de cada usuario</h6>
 <h6>- actualización de userSave para añadir multer y poder subir archivos</h6>

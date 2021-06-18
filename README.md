@@ -6,7 +6,7 @@ cd ..</br>
 cd back-end</br>
 npm install</br>
 
-Y así asegurar que vamos al día de los últimos paquetes. </br>
+Y así asegurar que los dos vamos al día de los últimos paquetes. </br>
 
 <h3>Actualizaciones</h3>
 <h4>back-end:</h4>

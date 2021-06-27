@@ -81,6 +81,19 @@ export default function () {
             })
     }, []);
 
+    //Actualizar mapa cada cierto tiempo
+    useEffect(() => {
+        const interval = setInterval(() => {
+            axios.get('http://localhost:5000/event/list')
+            .then(function (response) {
+                if (response.data != data)
+                    setData(response.data);
+            })
+            .catch(function (error) {console.log(error);})
+        }, 10000);
+        return () => clearInterval(interval);
+      }, []);
+
     const _map = React.useRef(null);
     return (
         <View style={styles.container}>

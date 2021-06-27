@@ -58,7 +58,8 @@ export default function () {
         await axios.post('http://localhost:5000/user/login', {credentials})
             .then(response => {
 
-                signIn(response.data.token, response.data.userImage);
+                let userName = response.data.name + ' ' + response.data.lastName;
+                signIn(response.data.token, response.data.userImage, userName);
             })
             .catch(error => {
                 //console.log(error.response.data);

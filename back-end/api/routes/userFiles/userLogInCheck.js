@@ -27,7 +27,7 @@ userLogInCheck.use(async(req, res) => {
         //const dbpassword = found.password;
         const validPassword = await bcrypt.compare(body.password, found.password);
         if (validPassword) {
-            const { _id, userImage } = found;
+            const { _id, userImage, name, lastName } = found;
             const token = await jwt.sign({ sub: _id.toString() }, JWT_SECRET, { expiresIn: JWT_EXP });
             //console.log(_id);
             //console.log(userImage);
@@ -46,7 +46,7 @@ userLogInCheck.use(async(req, res) => {
         
             //console.log(cursor);
             
-            await res.send({ token, userImage });
+            await res.send({ token, userImage, name, lastName });
 
            
         } else {

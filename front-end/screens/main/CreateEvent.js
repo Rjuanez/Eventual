@@ -1,6 +1,6 @@
 import React from 'react';
 import {useEffect, useReducer} from "react";
-import {View, StyleSheet, Text, Button, SafeAreaView, TouchableOpacity, Image, Dimensions} from 'react-native';
+import {View, StyleSheet, Text, Button, SafeAreaView, Keyboard, Dimensions, KeyboardAvoidingView, TouchableWithoutFeedback} from 'react-native';
 import {useFonts} from "expo-font";
 import PlainInput from "../../components/PlainInput";
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
@@ -116,94 +116,110 @@ export default function () {
     return (
             <View style={{flex: 1, backgroundColor: 'white'}}>
                 <SafeAreaView style={styles.container}>
-                    <Text style={styles.text1}>Do you want</Text>
-                    <Text style={styles.text2}>To meet 'em there?</Text>
-                    <Text style={styles.bodyText}>Titulo</Text>
-                    <View style={styles.titleRow}>
-                        <PlainInput
-                            //cambiar autocapitalize
-                            title={'About Branding'}
-                            style={styles.input2}
-                            onChangeText={(val) => {dispatch({ type: 'Name', name: val})}}
-                        />
-                        <View style={styles.selectorView}>
-                            <IconSelector onChange={(val) => {dispatch({ type: 'Type', eventType: val})}}/>
-                        </View>
-
-                    </View>
-
-                    <Text style={styles.bodyText}>Descripcion</Text>
-                    <PlainInput
-                        multiline = {true}
-                        title={`El Branding es el proceso de definición y
-    construcción de una marca mediante la gestión. `}
-                        style={styles.input}
-                        onChangeText={(val) => {dispatch({ type: 'Description', description: val})}}
-                    />
-                    <Text style={styles.bodyText}>Localizacion</Text>
-                    <GooglePlacesAutocomplete
-                        placeholder='Search'
-                        onPress={(data, details = null) => {
-                            // 'details' is provided when fetchDetails = true
-                            //console.log(details.description);
-                            Geocoder.from(details.description)
-                                .then(json => {
-                                    var location = json.results[0].geometry.location;
-                                    dispatch({ type: 'Coords', lat: location.lat, lng: location.lng});
-                                })
-                                .catch(error => console.warn(error));
-                            //dispatch({ type: 'Location', location: details.description});
-
-                        }}
-                        currentLocation = {true}
-                        enablePoweredByContainer ={false}
-                        styles={{
-                            container: {
-                                marginLeft:10,
-                                marginBottom: 20,
-                                flex: 0,
-                                width: '100%',
-                            },
-                        }}
-                        query={{
-                            key: 'AIzaSyDPr4r6el1y3zWzGKzJkQoxSg9AFqk2-Xg',
-                            language: 'en',
-                        }}
-                    />
-                    <View style={styles.timeContainer}>
-                        <View style={{marginRight: 10}}>
-                            <Text style={styles.dateText}>Dia</Text>
-                            <DataPicker
-                                style={{marginBottom: 20}}
-                                onChange = {(val) => {dispatch({ type: 'Date', date: val})}}
-                                mode="date"
-
-                            />
-                        </View>
-                        <View >
-                            <Text style={styles.dateText}>Hora</Text>
-                            <DataPicker
-                                style={{marginBottom: 20}}
-                                onChange = {(val)=>console.log(val)}
-                                mode="time"
-
-                            />
-                        </View>
-
-                    </View>
-                    <FilledButton
-                        title={'CREAR'}
+                    <KeyboardAvoidingView
+                        behavior={Platform.OS === "ios" ? "padding" : "height"}
                         style={{
-                            marginTop: 80,
-                            marginLeft: '10%',
-                            marginRight: '10%',
-                            width: '80%'
+                            width: '100%',
+                            height: '100%'
                         }}
-                        onPress={()=>{newEventHandler(inputState)}}
-                    />
+                    >
+                        <TouchableWithoutFeedback 
+                        onPress={Keyboard.dismiss}
+                        style={{
+                            width: '100%',
+                            height: '100%'
+                        }}
+                        
+                        >
+                            <View>
+                                <Text style={styles.text1}>Do you want</Text>
+                                <Text style={styles.text2}>To meet 'em there?</Text>
+                                <Text style={styles.bodyText}>Titulo</Text>
+                                <View style={styles.titleRow}>
+                                    <PlainInput
+                                        //cambiar autocapitalize
+                                        title={'About Branding'}
+                                        style={styles.input2}
+                                        onChangeText={(val) => {dispatch({ type: 'Name', name: val})}}
+                                    />
+                                    <View style={styles.selectorView}>
+                                        <IconSelector onChange={(val) => {dispatch({ type: 'Type', eventType: val})}}/>
+                                    </View>
 
+                                </View>
 
+                                <Text style={styles.bodyText}>Descripcion</Text>
+                                <PlainInput
+                                    multiline = {true}
+                                    title={`El Branding es el proceso de definición y
+                construcción de una marca mediante la gestión. `}
+                                    style={styles.input}
+                                    onChangeText={(val) => {dispatch({ type: 'Description', description: val})}}
+                                />
+                                <Text style={styles.bodyText}>Localizacion</Text>
+                                <GooglePlacesAutocomplete
+                                    placeholder='Search'
+                                    onPress={(data, details = null) => {
+                                        // 'details' is provided when fetchDetails = true
+                                        //console.log(details.description);
+                                        Geocoder.from(details.description)
+                                            .then(json => {
+                                                var location = json.results[0].geometry.location;
+                                                dispatch({ type: 'Coords', lat: location.lat, lng: location.lng});
+                                            })
+                                            .catch(error => console.warn(error));
+                                        //dispatch({ type: 'Location', location: details.description});
 
+                                    }}
+                                    currentLocation = {true}
+                                    enablePoweredByContainer ={false}
+                                    styles={{
+                                        container: {
+                                            marginLeft:10,
+                                            marginBottom: 20,
+                                            flex: 0,
+                                            width: '100%',
+                                        },
+                                    }}
+                                    query={{
+                                        key: 'AIzaSyDPr4r6el1y3zWzGKzJkQoxSg9AFqk2-Xg',
+                                        language: 'en',
+                                    }}
+                                />
+                                <View style={styles.timeContainer}>
+                                    <View style={{marginRight: 10}}>
+                                        <Text style={styles.dateText}>Dia</Text>
+                                        <DataPicker
+                                            style={{marginBottom: 20}}
+                                            onChange = {(val) => {dispatch({ type: 'Date', date: val})}}
+                                            mode="date"
+
+                                        />
+                                    </View>
+                                    <View >
+                                        <Text style={styles.dateText}>Hora</Text>
+                                        <DataPicker
+                                            style={{marginBottom: 20}}
+                                            onChange = {(val)=>console.log(val)}
+                                            mode="time"
+
+                                        />
+                                    </View>
+
+                                </View>
+                                <FilledButton
+                                    title={'CREAR'}
+                                    style={{
+                                        marginTop: 80,
+                                        marginLeft: '10%',
+                                        marginRight: '10%',
+                                        width: '80%'
+                                    }}
+                                    onPress={()=>{newEventHandler(inputState)}}
+                                />
+                            </View>
+                        </TouchableWithoutFeedback>
+                    </KeyboardAvoidingView>
                 </SafeAreaView>
             </View>
 

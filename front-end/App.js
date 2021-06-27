@@ -49,12 +49,13 @@ export default function App() {
 
 
   const authContext = React.useMemo(() => ({
-    signIn: async (userToken, userImage) => {
+    signIn: async (userToken, userImage, userName) => {
 
       setAuthToken(userToken);
       try {
         await AsyncStorage.setItem('userToken', userToken);
         await AsyncStorage.setItem('userImage', userImage);
+        await AsyncStorage.setItem('userName', userName);
       } catch (e) {
         console.log(e);
       }

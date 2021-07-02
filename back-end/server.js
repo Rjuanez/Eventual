@@ -20,6 +20,7 @@ const userUpdate = require('./api/routes/userFiles/userUpdate');
 const userDelete = require('./api/routes/userFiles/userDelete')
 const userList = require('./api/routes/userFiles/userList')
 const userRouter = require('./api/routes/userFiles/userRouter')
+const userAddFriend = require('./api/routes/userFiles/userAddFriend')
 
 //Event files
 const eventCreate = require('./api/routes/eventFiles/eventCreate');
@@ -68,8 +69,8 @@ mongoose.connect(MONGODB_URL, { useUnifiedTopology: true, useNewUrlParser: true,
         app.route('/user/update').put(userUpdate);
         app.route('/user/delete').delete(userDelete);
         app.route('/user/list').get(userList);
-        app.route('/user/currentuser').get(userRouter)
-
+        app.route('/user/currentuser').get(userRouter);
+        app.route('/user/addfriend/:id').post(userAddFriend);
 
         //Event routes
         app.route('/event/create').get(eventCreate);
@@ -77,7 +78,7 @@ mongoose.connect(MONGODB_URL, { useUnifiedTopology: true, useNewUrlParser: true,
         app.route('/event/list').get(eventList);
         app.route('/event/join/:id').post(eventJoin);
         app.route('/event/update').put(eventUpdate);
-        app.route('/event/info/:id').get(eventInfo)
+        app.route('/event/info/:id').get(eventInfo);
         //app.get('/event/info/:id', eventInfo)
         //app.route('/event/info/:id').get(eventInfo)
 
